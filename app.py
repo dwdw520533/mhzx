@@ -38,12 +38,6 @@ def index():
 
 @app.route('/<path:path>')
 def send_static(path):
-    import os
-    from flask.helpers import safe_join
-    filename = safe_join('static', path)
-    if not os.path.isabs(filename):
-        filename = os.path.join(app.root_path, filename)
-    print("filename:", filename)
     return send_from_directory('static', path)
 
 
