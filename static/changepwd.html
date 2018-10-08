@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1"><title>
+	修改密码
+</title><link href="style/css.css" tppabs="http://www.52qyzx.com:8081/style/css.css" rel="stylesheet" type="text/css" />
+<script src="script/js.js" tppabs="http://www.52qyzx.com:8081/script/js.js" type="text/javascript"></script>
+<script src="fastreg/js/jq_131.js" tppabs="http://www.52qyzx.com:8081/fastreg/js/jq_131.js" type="text/javascript"></script>
+<script charset=utf-8"utf-8" src="script/register.js" tppabs="http://www.52qyzx.com:8081/script/register.js" type="text/javascript"></script>
+<script src="script/common.js" tppabs="http://www.52qyzx.com:8081/script/common.js" type="text/javascript"></script>
+<script charset="utf-8" src="script/checkForm.js" tppabs="http://www.52qyzx.com:8081/script/checkForm.js" type="text/javascript"></script>
+<script type="text/javascript" src="script/cookieread.js" tppabs="http://www.52qyzx.com:8081/script/cookieread.js"></script>
+<script language="javascript" type="text/javascript">
+
+function writeCookieInfo(itemId, itemValue){
+    if (window.parent.document.getElementById(itemId)) {
+        window.parent.document.getElementById(itemId).value = itemValue;
+    }
+}
+
+function getWanmeiRefe() {
+	return document.referrer;
+}
+function loadCookieInfo(){
+    writeCookieInfo('guid', getWanmeiGuid());
+    writeCookieInfo('adid', getWanmeiAdid());
+    writeCookieInfo('hdid', getWanmeiHdid());
+    writeCookieInfo('refer', getWanmeiRefe());
+}
+window.onload = loadCookieInfo;
+
+function getInnerText(obj){
+  return document.all?obj.innerText:obj.textContent;
+}
+
+//新手卡，推广员切换
+function switchCardType(type){
+	document.getElementById('cardInput').style.display="";
+	if(type==1){
+		document.getElementById('typeTitle').innerHTML='<strong>推广员账号</strong>'
+		document.getElementById('typeInstruct').innerHTML='输入推广员的passport账号，你的账号在游戏中可获得一定的奖励'
+	}else{
+		if(document.getElementById("nameOfname").innerHTML=="情谊诛仙船票"){
+			document.getElementById('typeTitle').innerHTML='<strong>情谊诛仙船票激活码</strong>'
+			document.getElementById('typeInstruct').innerHTML='凡通过官网、媒体、短信、邮件方式获得的情谊诛仙船票，皆可在此进行验证激活，根据你船票的等级不同，将会在游戏内获得不同的超值礼品。';
+			document.getElementById('wanmeii18n').style.display="";
+		}else{
+			document.getElementById('typeTitle').innerHTML='<strong>新手卡号</strong>';
+		    document.getElementById('typeInstruct').innerHTML='推广员活动所发放的VIP礼包领取码，输入有效的VIP激活码你的账号在游戏中可获得一定的奖励';
+		    document.getElementById('wanmeii18n').style.display="none";
+		}
+	}
+}
+function selectGame(x)
+{	
+	document.getElementById('s1').style.display="block";
+	if(x==1){
+		document.getElementById("nameOfname").innerHTML="情谊诛仙船票";
+		document.getElementById("tgType1").checked="true";
+		switchCardType(2);
+	}else{
+		document.getElementById("nameOfname").innerHTML="新手卡号";
+		document.getElementById("tgType1").checked="true";
+		switchCardType(2);
+	}
+}
+</script>
+<script language="javascript" type="text/javascript">
+	$(document).ready(function cho2(){
+		if($('#nomoblie-input').attr("checked")){
+			$('#nomoblie').show();
+		}else{
+			$('#nomoblie').hide();
+		}
+		setTimeout(cho2 ,50)
+	})
+</script>
+
+<script language="javascript" type="text/javascript">
+function ValidatingUserName()
+{
+
+var userName =document.getElementById("username");
+var oBao = new ActiveXObject("Microsoft.XMLHTTP");
+oBao.open("GET","query.aspx?UserName="+userName.value+"&ZoneName=" + encodeURI(document.getElementById('DropDownList1').value), false);
+oBao.send();
+var strResult = oBao.responseText;
+
+document.getElementById('question').value = strResult;
+}
+</script>
+
+</head>
+<body>
+<link href="style/top.css" rel="stylesheet" type="text/css">
+<div class="wm_com_menu menu_for_passport">
+  <div class="wm_com_menu_main">
+    <div class="wm_com_logo"><a href="#"><img src="style/wm_member_logo.png" alt="会员中心"></a></div>
+    <div class="wm_com_nav"><span class="cor_l"></span><span class="cor_r"></span>
+      <ul class="wm_com_mainnav">
+        <li class=""><a href="index.html">首页</a></li>
+        <li class=""><a href="regist.html">账号注册</a></li>
+        <li class="on"><a href="changepwd.html">密码修改</a></li>
+        <li class=""><a href="backpwd.html">密码取回</a></li>
+        <li class=""><a href="http://www.zx2014.com/pay.html" target="_blank">游戏冲值</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+    <br />
+<form name="changepwd" method="post" action="http://www.52qyzx.com:8081/changepwd.aspx" id="register">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMTE4Mjc1NjE3D2QWAgILD2QWAgIBDxBkDxYFZgIBAgICAwIEFgUQBSstPS09LT0tPS096K+35LiL5ouJ6YCJ5Y+W5YiG5Yy6PS09LT0tPS09LT0tBSstPS09LT0tPS096K+35LiL5ouJ6YCJ5Y+W5YiG5Yy6PS09LT0tPS09LT0tZxAFLy09LT0tPeOAijXogYzkuJrku7/lrpjjgIvpgInmi6nkuIvmlrnljLrmnI09LT0tBS8tPS09LT3jgIo16IGM5Lia5Lu/5a6Y44CL6YCJ5oup5LiL5pa55Yy65pyNPS09LWcQBRrlj4znur/kuIDljLrCt1vluJ3lsIpdX+aWsAUa5Y+M57q/5LiA5Yy6wrdb5bid5bCKXV/mlrBnEAUvLT0tPS0944CKOeiBjOS4muS7v+WumOOAi+mAieaLqeS4i+aWueWMuuacjT0tPS0FLy09LT0tPeOAijnogYzkuJrku7/lrpjjgIvpgInmi6nkuIvmlrnljLrmnI09LT0tZxAFGuWPjOe6v+S4gOWMusK3W+mAkOWkqV1f5pawBRrlj4znur/kuIDljLrCt1vpgJDlpKldX+aWsGdkZGSgDm5LoCD9iKOdo87ovh2TwsTcsLRa5aE0b0zjwuobmw==" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKIqrrzCwLX08XsBgK+l8JnAo+0h8MOArLt+dkNAti3vskPrkNO3mQIS/WOA7hFYBXlVwa/xhRtRDv7shLvilBVBeM=" />
+    &nbsp; &nbsp;
+<div class="w">
+	<div class="reg"><dl>
+		<dd>
+		<table  style="width:560px;">
+            <tr>
+                <td class="tit"><strong>游戏大区：</strong></td>
+			<td class="select"><select name="zone_id" size="1" id="zone" style="width:auto">
+<option value="1">征战天下</option>			</select>
+		    </td>
+                <td class="txt">
+                </td>
+            </tr>
+		  <tr>
+			<td class="tit"><strong>通行证账号：</strong></td>
+			<td class="input"><input type="text" name="name" onblur="ValidatingUserName();" value="" tabindex="1"/></td>
+			<td class="txt">
+			</td>
+		  </tr>
+		  </table>
+		  <table style="width:560px;"> 
+              <tr>
+                  <td class="tit">
+                 <b>原密码：</b></td>
+                 <td class="input"><input  name="originpwd" value="" type="password" tabindex="1"/>
+                 </td>
+              <td class="txt">
+                  </td>
+              </tr>
+              <tr>
+                  <td class="tit">
+                <b>新密码：</b></td>
+                <td class="input">
+                    <input  name="newpwd" maxlength="16" type="password"  tabindex="3"/></td>
+              <td class="txt"></td>
+              </tr>
+              <tr>
+			<td class="tit"><strong>重复新密码：</strong></td>
+			<td class="input"><input type="password" name="newpwdagain" maxlength="15" tabindex="5"/></td>
+			<td class="txt">
+			<div id="Div1">
+                由5-15位英文字母及数字组成</div>
+			</td>
+              </tr>
+		  </table>
+		
+		</dd>
+        <dd></dd><dd>&nbsp;</dd><dd>
+		<table>
+		  <tr>
+              <td colspan="3">情谊诛仙对您提供的个人资料将依据情谊诛仙用户隐私政策进行管理和保护。具体内容请见<label><a href="index.html" tppabs="http://www.52qyzx.com:8081/" target="_blank">隐私政策</a></label></td>
+            </tr>
+		  <tr>
+		    <td colspan="3"><center><input type="submit" name="Submit" value="修改密码" tabindex="8" /></center></td>
+	      </tr>
+		</table>
+            </dd>
+	</dl></div>
+</div>
+<input type="hidden" id="guid" name="guid" size="0"/> 
+<input type="hidden" id="adid" name="adid" size="0"/> 
+<input type="hidden" id="hdid" name="hdid" size="0"/> 
+<input type="hidden" id="refer" name="refer" size="0"/> 
+
+</form>
+<!--正文结束-->
+
+<div style="width:888px;margin:20px auto;clear:both">
+<iframe src="bottom.htm" tppabs="http://www.52qyzx.com:8081/bottom.htm" width="888" height="160" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+
+<!--底部结束-->
+
+<div style="display:none">
+
+</div>
+    
+</body>
+</html>
