@@ -43,6 +43,13 @@ def send_static_file(directory, path):
     return send_file(filename)
 
 
+def send_update_file(path):
+    filename = safe_join(conf.SERVER_UPDATE_DIR, path)
+    if not os.path.isfile(filename):
+        return "file path not find"
+    return send_file(filename)
+
+
 @app.route('/')
 def index():
     return send_static_file("static", "index.html")
@@ -50,8 +57,8 @@ def index():
 
 @app.route('/<path:path>')
 def send_static(path):
-    if path.split("/")[0] == "server":
-        return send_static_file("", path)
+    if path.split("/")[0] == "update":
+        return send_update_file(path)
     else:
         return send_static_file("static", path)
 
