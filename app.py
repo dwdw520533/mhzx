@@ -7,7 +7,7 @@ import logging
 import traceback
 import functools
 from flask.helpers import safe_join, send_file
-from utils.api import api_wrap, APIResult
+from api import api_wrap, APIResult
 from flask import Flask, request, Response
 
 app = Flask("mhzx", static_url_path='/static')
@@ -44,7 +44,7 @@ def send_static_file(directory, path):
 
 
 def send_update_file(path):
-    filename = safe_join(conf.SERVER_UPDATE_DIR, path)
+    filename = safe_join(conf.UPDATE_DIR, path)
     if not os.path.isfile(filename):
         return "file path not find"
     return send_file(filename)
