@@ -6,8 +6,9 @@ ZONE_CONF = {
     "征战天下": 1
 }
 
-UPDATE_DIR = "C:/server/update"
-PACKAGE_DIR = "C:/server/package"
+ROOT_DIR = "C:/server"
+UPDATE_DIR = os.path.join(ROOT_DIR, "update")
+PACKAGE_DIR = os.path.join(ROOT_DIR, "package")
 
 UPDATE_FILE = os.path.join(UPDATE_DIR, "data.7z")
 
