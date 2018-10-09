@@ -14,8 +14,6 @@ def sync_common_data_files():
         raise ValueError("client data directory not existed!")
     for root_dir, _, file_names in os_utils.walk(COMMON_DIR):
         for filename in file_names:
-            if not filename.endswith(".data"):
-                continue
             source = os_utils.joinpath(root_dir, filename)
             server_dist = os_utils.joinpath(SERVER_DIR, filename)
             client_dist = os_utils.joinpath(CLIENT_DATA_DIR, filename)
