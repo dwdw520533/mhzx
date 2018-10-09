@@ -1,12 +1,13 @@
 # coding:utf-8
 import os
+os.path.abspath(os.path.dirname(__file__))
 import conf
 import logging
 import traceback
 import functools
 from flask.helpers import safe_join, send_file
 from utils.api import api_wrap, APIResult
-from flask import Flask, request, Response, send_from_directory
+from flask import Flask, request, Response
 
 app = Flask("mhzx", static_url_path='/static')
 
@@ -81,6 +82,8 @@ def backpasswd():
     return APIResult(0)
 
 
+application = app
+
+
 if __name__ == '__main__':
-    print(os.path.dirname(__file__))
-    #app.run(host='127.0.0.1', port=80, debug=True)
+    app.run(host='127.0.0.1', port=80, debug=True)
