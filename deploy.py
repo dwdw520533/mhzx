@@ -37,4 +37,5 @@ def package_client():
 
 
 if __name__ == '__main__':
+    sync_common_data_files()
     package_client()
