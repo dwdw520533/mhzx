@@ -1,6 +1,5 @@
 import sys
-
-sys.path.insert(0,"C:/website/mhzx")
+sys.path.insert(0, "C:/website/Apache24/mhzx")
 
 from app import app
 
