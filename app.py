@@ -51,7 +51,7 @@ def index():
 @app.route('/<path:path>')
 def send_static(path):
     if path.split("/")[0] == "server":
-        return send_static_file("server", path)
+        return send_static_file("", path)
     else:
         return send_static_file("static", path)
 
