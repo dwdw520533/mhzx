@@ -33,6 +33,7 @@ def package_client():
                 full_path = os_utils.joinpath(root, filename)
                 zip_path = full_path[prefix_len:]
                 zipped.write(full_path, zip_path)
+        print("package client to data.7z")
 
 
 if __name__ == '__main__':
