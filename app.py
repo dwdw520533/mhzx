@@ -35,8 +35,8 @@ def handle_error(e):
     return Response(response=resp, status=500)
 
 
-def send_static_file(path):
-    filename = safe_join("static", path)
+def send_static_file(directory, path):
+    filename = safe_join(directory, path)
     filename = os.path.join(os.path.dirname(__file__), filename)
     if not os.path.isfile(filename):
         return "file path not find"
@@ -45,12 +45,15 @@ def send_static_file(path):
 
 @app.route('/')
 def index():
-    return send_static_file("index.html")
+    return send_static_file("static", "index.html")
 
 
 @app.route('/<path:path>')
 def send_static(path):
-    return send_static_file(path)
+    if path.split("/")[0] == "server":
+        return send_static_file("server", path)
+    else:
+        return send_static_file("static", path)
 
 
 @app.route('/register', methods=['POST'])
