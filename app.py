@@ -6,7 +6,7 @@ import functools
 from utils.api import api_wrap, APIResult
 from flask import Flask, request, Response, send_from_directory
 
-app = Flask("zx", static_url_path='/static')
+app = Flask("mhzx", static_url_path='/static')
 
 
 def expose(func):
