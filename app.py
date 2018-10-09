@@ -1,8 +1,10 @@
 # coding:utf-8
+import os
 import conf
 import logging
 import traceback
 import functools
+from flask.helpers import safe_join, send_file
 from utils.api import api_wrap, APIResult
 from flask import Flask, request, Response, send_from_directory
 
@@ -31,14 +33,22 @@ def handle_error(e):
     return Response(response=resp, status=500)
 
 
+def send_static_file(path):
+    filename = safe_join("static", path)
+    filename = os.path.join(os.path.dirname(__file__), filename)
+    if not os.path.isfile(filename):
+        return "file path not find"
+    return send_file(filename)
+
+
 @app.route('/')
 def index():
-    return send_from_directory('static', "index.html")
+    return send_static_file("index.html")
 
 
 @app.route('/<path:path>')
 def send_static(path):
-    return send_from_directory('static', path)
+    return send_static_file(path)
 
 
 @app.route('/register', methods=['POST'])
@@ -72,4 +82,5 @@ def backpasswd():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=80, debug=True)
+    print(os.path.dirname(__file__))
+    #app.run(host='127.0.0.1', port=80, debug=True)
