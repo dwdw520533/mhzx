@@ -1,6 +1,7 @@
 # coding:utf-8
 import os
-os.path.abspath(os.path.dirname(__file__))
+import sys
+sys.path.append(os.path.dirname(__file__))
 import conf
 import logging
 import traceback
