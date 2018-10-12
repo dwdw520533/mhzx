@@ -8,7 +8,7 @@ import traceback
 import functools
 from flask.helpers import safe_join, send_file
 from tool.api import api_wrap, APIResult
-from flask import Flask, request, Response
+from flask import Flask, request, Response, redirect
 from ops.user import register_user, change_password, back_password
 
 app = Flask("mhzx", static_url_path='/static')
@@ -36,17 +36,15 @@ def handle_error(e):
     return Response(response=resp, status=500)
 
 
-def send_static_file(directory, path):
-    filename = safe_join(directory, path)
-    filename = os.path.join(os.path.dirname(__file__), filename)
+def send_static_file(path):
+    filename = os.path.join(os.path.dirname(__file__), safe_join("static", path))
     if not os.path.isfile(filename):
         return "file path not find"
     return send_file(filename)
 
 
-def send_update_file(directory, path):
-    filename = safe_join(directory, path)
-    filename = safe_join(conf.ROOT_DIR, filename)
+def send_update_file(path):
+    filename = safe_join(conf.UPDATE_DIR, path)
     if not os.path.isfile(filename):
         return "file path not find"
     return send_file(filename)
@@ -54,24 +52,31 @@ def send_update_file(directory, path):
 
 @app.route('/')
 def index():
-    return send_static_file("static", "index.html")
+    return redirect("/static/index.html")
 
 
 @app.route('/static/<path:path>')
 def send_static(path):
-    return send_static_file("static", path)
+    return send_static_file(path)
 
 
 @app.route('/update/<path:path>')
 def send_update_static(path):
-    return send_update_file("update", path)
+    return send_update_file(path)
 
 
 @app.route('/api/register', methods=['POST'])
 @api_wrap
 @expose
 def register():
-    flag, user = register_user(**request.json)
+    params = [
+        "name",
+        "passwd",
+        "question",
+        "answer",
+        "qq"
+    ]
+    flag, user = register_user(**{i: request.form.get(i) for i in params})
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -81,7 +86,12 @@ def register():
 @api_wrap
 @expose
 def changepasswd():
-    flag, user = change_password(**request.json)
+    params = [
+        "name",
+        "old_pwd",
+        "new_pwd"
+    ]
+    flag, user = change_password(**{i: request.form.get(i) for i in params})
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -91,7 +101,13 @@ def changepasswd():
 @api_wrap
 @expose
 def backpasswd():
-    flag, user = back_password(**request.json)
+    params = [
+        "name",
+        "question",
+        "answer",
+        "passwd"
+    ]
+    flag, user = back_password(**{i: request.form.get(i) for i in params})
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -101,4 +117,4 @@ application = app
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=80, debug=True)
+    app.run(host='192.168.5.65', port=8000, debug=True)
