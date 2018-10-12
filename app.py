@@ -44,8 +44,9 @@ def send_static_file(directory, path):
     return send_file(filename)
 
 
-def send_update_file(path):
-    filename = safe_join(conf.ROOT_DIR, path)
+def send_update_file(directory, path):
+    filename = safe_join(directory, path)
+    filename = safe_join(conf.ROOT_DIR, filename)
     if not os.path.isfile(filename):
         return "file path not find"
     return send_file(filename)
@@ -56,15 +57,17 @@ def index():
     return send_static_file("static", "index.html")
 
 
-@app.route('/<path:path>')
+@app.route('/static/<path:path>')
 def send_static(path):
-    if path.split("/")[0] == "update":
-        return send_update_file(path)
-    else:
-        return send_static_file("static", path)
+    return send_static_file("static", path)
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/update/<path:path>')
+def send_update_static(path):
+    return send_update_file("update", path)
+
+
+@app.route('/api/register', methods=['POST'])
 @api_wrap
 @expose
 def register():
@@ -74,7 +77,7 @@ def register():
     return APIResult(0)
 
 
-@app.route('/changepasswd', methods=['POST'])
+@app.route('/api/changepasswd', methods=['POST'])
 @api_wrap
 @expose
 def changepasswd():
@@ -84,7 +87,7 @@ def changepasswd():
     return APIResult(0)
 
 
-@app.route('/changepasswd', methods=['POST'])
+@app.route('/api/backpasswd', methods=['POST'])
 @api_wrap
 @expose
 def backpasswd():
