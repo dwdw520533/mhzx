@@ -9,7 +9,7 @@ import functools
 from flask.helpers import safe_join, send_file
 from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response, redirect
-from ops.user import register_user, change_password, back_password
+from ops.user import User
 
 app = Flask("mhzx", static_folder="", static_url_path="")
 
@@ -18,9 +18,15 @@ def expose(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         try:
+            zone_id = request.json.pop("zone_id", None)
+            if not zone_id:
+                return APIResult(1, msg="参数错误")
+            setattr(request, "user_service", User(conf.ZONE_SQL_CONF[str(zone_id)]))
             return func(*args, **kwargs)
         except KeyError:
             return APIResult(1, msg="参数错误")
+        except Exception:
+            return APIResult(1, msg="系统错误")
     return wrapper
 
 
@@ -69,14 +75,7 @@ def send_update(path):
 @api_wrap
 @expose
 def register():
-    params = [
-        "name",
-        "passwd",
-        "question",
-        "answer",
-        "qq"
-    ]
-    flag, user = register_user(**{i: request.form.get(i) for i in params})
+    flag, user = request.user_service.register_user(**request.json)
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -86,12 +85,7 @@ def register():
 @api_wrap
 @expose
 def changepasswd():
-    params = [
-        "name",
-        "old_pwd",
-        "new_pwd"
-    ]
-    flag, user = change_password(**{i: request.form.get(i) for i in params})
+    flag, user = request.user_service.change_password(**request.json)
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -101,13 +95,7 @@ def changepasswd():
 @api_wrap
 @expose
 def backpasswd():
-    params = [
-        "name",
-        "question",
-        "answer",
-        "passwd"
-    ]
-    flag, user = back_password(**{i: request.form.get(i) for i in params})
+    flag, user = request.user_service.back_password(**request.json)
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -117,4 +105,4 @@ application = app
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.5.65', port=8000, debug=True)
+    app.run(host='127.0.0.1', port=8000, debug=True)

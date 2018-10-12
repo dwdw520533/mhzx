@@ -1,8 +1,8 @@
-function isNull(name,str){//�Ƿ��ֵ by lyj
+function isNull(obj,str){//�Ƿ��ֵ by lyj
 
-  if(trim(name.value)==""){
+  if(obj.val() === undefined || obj.val() === ""){
     alert(str);
-    name.focus();
+    obj.focus();
     return true;
   }
   return false;
@@ -10,7 +10,7 @@ function isNull(name,str){//�Ƿ��ֵ by lyj
 
 function notPhonenumber(name,str){
 	var patrn=/^(0[0-9]{2,3}\-)?[2-9][0-9]{6,7}$/;
-	if(!patrn.exec(trim(name.value))){
+	if(!patrn.exec(trim(name))){
 		alert(str);
     	name.focus();
     	return true;
@@ -19,7 +19,7 @@ function notPhonenumber(name,str){
 }
 
 function notLength(name,length,str){//�����Ƿ�� by lyj
-  if(trim(name.value).length!=length){
+  if(trim(name).length!=length){
     alert(str);
     name.focus();
     return true;
@@ -28,7 +28,7 @@ function notLength(name,length,str){//�����Ƿ�� by lyj
 }
 
 function notNumber(name,str){//�Ƿ����� by lyj ������д
-  if(trim(name.value)==""||isNaN(trim(name.value))){
+  if(trim(name)==""||isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
@@ -37,11 +37,11 @@ function notNumber(name,str){//�Ƿ����� by lyj ������д
 }
 
 function notNumber0(name,str){//�Ƿ����� by lyj δ��дĬ��0
-  if(trim(name.value)==""){
-    name.value=0;
+  if(trim(name)==""){
+    name=0;
     return false;
   }
-  else if(isNaN(trim(name.value))){
+  else if(isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
@@ -49,8 +49,8 @@ function notNumber0(name,str){//�Ƿ����� by lyj δ��дĬ��0
   return false;
 }
 function notNumber1(name,str){//�Ƿ����� by lyj
-  if(trim(name.value)!=""){
-      if(isNaN(trim(name.value))){
+  if(trim(name)!=""){
+      if(isNaN(trim(name))){
         alert(str);
         name.focus();
        return true;
@@ -59,7 +59,7 @@ function notNumber1(name,str){//�Ƿ����� by lyj
   return false;
 }
 function notLandN(name,length,str){//�̶����ȵ�����
-  if(trim(name.value).length!=length||isNaN(trim(name.value))){
+  if(trim(name).length!=length||isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
@@ -68,12 +68,12 @@ function notLandN(name,length,str){//�̶����ȵ�����
 }
 
 function notNY(name,str){//�Ƿ�Ϸ����� by lyj
-  if(trim(name.value)==""||trim(name.value).length!=6||isNaN(trim(name.value))){
+  if(trim(name)==""||trim(name).length!=6||isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
   }
-  if(trim(name.value).substring(4,6)>12){
+  if(trim(name).substring(4,6)>12){
     alert("�·ݲ��ܴ���12,��˶�!");
      name.focus();
      return true;
@@ -81,12 +81,12 @@ function notNY(name,str){//�Ƿ�Ϸ����� by lyj
   return false;
 }
 function notNY1(name,str){//�Ƿ�Ϸ����� by lyj
-  if(trim(name.value).length!=6||isNaN(trim(name.value))){
+  if(trim(name).length!=6||isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
   }
-  if(trim(name.value).substring(4,6)>12){
+  if(trim(name).substring(4,6)>12){
     alert("�·ݲ��ܴ���12,��˶�!");
      name.focus();
      return true;
@@ -94,17 +94,17 @@ function notNY1(name,str){//�Ƿ�Ϸ����� by lyj
   return false;
 }
 function notNYR(name,str){//�Ƿ�Ϸ����� �� by wkh
-  if(trim(name.value)==""||trim(name.value).length!=8||isNaN(trim(name.value))){
+  if(trim(name)==""||trim(name).length!=8||isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
   }
-  if(trim(name.value).substring(4,6)>12){
+  if(trim(name).substring(4,6)>12){
     alert("�·ݲ��ܴ���12,��˶�!");
      name.focus();
      return true;
   }
-  if(trim(name.value).substring(6,8)>31){
+  if(trim(name).substring(6,8)>31){
     alert("���ڲ��ܴ���31,��˶�!");
      name.focus();
      return true;
@@ -112,17 +112,17 @@ function notNYR(name,str){//�Ƿ�Ϸ����� �� by wkh
   return false;
 }
 function notNYR1(name,str){//�Ƿ�Ϸ����� �� by wkh
-  if(trim(name.value).length!=8||isNaN(trim(name.value))){
+  if(trim(name).length!=8||isNaN(trim(name))){
     alert(str);
     name.focus();
     return true;
   }
-  if(trim(name.value).substring(4,6)>12){
+  if(trim(name).substring(4,6)>12){
     alert("�·ݲ��ܴ���12,��˶�!");
      name.focus();
      return true;
   }
-  if(trim(name.value).substring(6,8)>31){
+  if(trim(name).substring(6,8)>31){
     alert("���ڲ��ܴ���31,��˶�!");
      name.focus();
      return true;
@@ -131,30 +131,30 @@ function notNYR1(name,str){//�Ƿ�Ϸ����� �� by wkh
 }
 //2003-01-01
 function notNYR2(name,str){//�Ƿ�Ϸ����� �� by wkh
-  if(trim(name.value).length==0){
+  if(trim(name).length==0){
      return false;
   }
-  if(trim(name.value).length!=10){
+  if(trim(name).length!=10){
     alert(str+"�ĸ�ʽ���ԣ���ʽӦ����ˣ�2003-01-01");
     name.focus();
     return true;
   }
-   if(trim(name.value).substring(4,5)!="-"){
+   if(trim(name).substring(4,5)!="-"){
      alert(str+"�������·�֮��Ӧ����l�Ӻ�,��˶�!");
      name.focus();
      return true;
   }
-  if(trim(name.value).substring(5,7)>12){
+  if(trim(name).substring(5,7)>12){
     alert(str+"���·ݲ��ܴ���12,��˶�!");
      name.focus();
      return true;
   }
-  if(trim(name.value).substring(7,8)!="-"){
+  if(trim(name).substring(7,8)!="-"){
      alert(str+"���·�������֮��Ӧ����l�Ӻ�,��˶�!");
      name.focus();
      return true;
   }
-  if(trim(name.value).substring(8,9)>31){
+  if(trim(name).substring(8,9)>31){
     alert(str+"�����ڲ��ܴ���31,��˶�!");
      name.focus();
      return true;
@@ -162,7 +162,7 @@ function notNYR2(name,str){//�Ƿ�Ϸ����� �� by wkh
   return false;
 }
 function notPost(name){//�Ƿ��ʱ� by lyj
-  if(trim(name.value).length!=6||isNaN(trim(name.value))){
+  if(trim(name).length!=6||isNaN(trim(name))){
     alert("��������ȷ����������!");
     name.focus();
     return true;
@@ -174,7 +174,7 @@ function notEmail(name){//�Ƿ�����
   var str,re;
   re=/([\w|-]+@[\w|-]+\.[\w|-]+)(\.?[\w|-]*)(\.?[\w|-]*)/i;
 
-  re.exec(trim(name.value));
+  re.exec(trim(name));
   if (RegExp.$3!=""&&RegExp.$3!="."&&RegExp.$2!=".")
     str=RegExp.$1+RegExp.$2+RegExp.$3;
   else
@@ -182,7 +182,7 @@ function notEmail(name){//�Ƿ�����
       str=RegExp.$1+RegExp.$2 ;
   else
     str=RegExp.$1 ;
-  if (str!=trim(name.value))
+  if (str!=trim(name))
   {
     alert("����д��ȷ���ʼ���ַ");
     name.focus();
@@ -193,7 +193,7 @@ function notEmail(name){//�Ƿ�����
 
 
 function notFloat(name,str){// ��С�������
-  var s = parseFloat(trim(name.value));
+  var s = parseFloat(trim(name));
   if(isNaN(s)){
     alert(str);
     name.focus();
@@ -203,13 +203,13 @@ function notFloat(name,str){// ��С�������
     return false;
 }
 function isIntNumber(name,str){ //
-    if( isNaN(trim(name.value))){
+    if( isNaN(trim(name))){
          alert(str);
         name.focus();
         return true;
     }
-    var s = parseInt(trim(name.value));
-    if(trim(name.value)!=s){
+    var s = parseInt(trim(name));
+    if(trim(name)!=s){
         alert(str);
        name.focus();
         return true;
@@ -219,20 +219,20 @@ function isIntNumber(name,str){ //
 }
 
 function notIntNumber(name,str){
-    if( isNaN(trim(name.value))){
+    if( isNaN(trim(name))){
         alert(str);
         name.focus();
         return true;
     }
 
-	if(name.value.indexOf('.')>=0){
+	if(name.indexOf('.')>=0){
 		alert(str);
 		name.focus();
 		return true;
 	}
 
-    var s = parseInt(trim(name.value));
-    if(trim(name.value)!=s){
+    var s = parseInt(trim(name));
+    if(trim(name)!=s){
        alert(str);
        name.focus();
        return true;
@@ -327,14 +327,14 @@ function makeToSafe(formName)
 	{
 		if(form.elements[i].type=="text" || form.elements[i].type=="textarea")
 		{
-			form.elements[i].value = toSafe(form.elements[i].value);
+			form.elements[i] = toSafe(form.elements[i]);
 		}
 	}
 }
 
 function notValidName(obj)
 {
-	var objValue = obj.value;
+	var objValue = obj;
     for(var i=0;i<objValue.length;i++){
             var temtchar = objValue.charAt(i);
           // alert(temtchar+":"+temtchar.charCodeAt(0));
@@ -350,7 +350,7 @@ function notValidName(obj)
 }
 function notValidPassWord(obj)
 {
-	var objValue = obj.value;
+	var objValue = obj;
     for(var i=0;i<objValue.length;i++){
             var temtchar = objValue.charAt(i);
           //  alert(temtchar+":"+temtchar.charCodeAt(0));
@@ -365,7 +365,7 @@ function notValidPassWord(obj)
   	return false;
 }
 function notChinese(obj,alertValue){
-	var objValue = obj.value;
+	var objValue = obj;
     for(var i=0;i<objValue.length;i++){
             var temtchar = objValue.charAt(i);
          //  alert(temtchar+":"+temtchar.charCodeAt(0));
@@ -433,7 +433,7 @@ function makeToHtml(formName)
 	form = eval(formName);
 	for(i=0;i<form.elements.length;i++)
 		if(form.elements[i].type=="textarea")
-			form.elements[i].value = convertToHtml(form.elements[i].value);
+			form.elements[i] = convertToHtml(form.elements[i]);
 }
 
 
@@ -456,7 +456,7 @@ function printinfo(){
     else
       form1.action=test+"?printflag=1";
   }else{
-    form1.all.printflag.value="1";
+    form1.all.printflag="1";
   }
   form1.submit();
   form1.action=  action;
@@ -518,7 +518,7 @@ function ischinese(name)
 
 var errorChar;
 var badChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><,[]{}?/+=|\\'\":;~!#$%()`";
-     errorChar = isCharsInBag(name.value, badChar)
+     errorChar = isCharsInBag(name, badChar)
         if (errorChar != "" )
     {
     alert("��������������\n");
@@ -534,7 +534,7 @@ function ischineseordata(name)
 
 var errorChar;
 var badChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz><,[]{}?/+=|\\'\":;~!#$%()`";
-     errorChar = isCharsInBag(name.value, badChar)
+     errorChar = isCharsInBag(name, badChar)
         if (errorChar != "" )
     {
     alert("�������������Ļ�����\n");
@@ -545,3 +545,12 @@ var badChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz><,[]{}?/+=|\
     return false;
 }
 
+function checkPasswd(s){
+	//alert("s："+s);
+	var patrn=/^[a-zA-Z0-9]{6,16}$/;
+	if (patrn.exec(s)){
+		return true
+	}else{
+		return false
+	}
+}

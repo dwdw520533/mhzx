@@ -19,7 +19,7 @@ CLIENT_EL_DIR = os.path.join(CLIENT_DIR, "element")
 CLIENT_DATA_DIR = os.path.join(CLIENT_EL_DIR, "data")
 
 
-MYSQL_CONF = {
+SQL_1345_CONF = {
     "host": "127.0.0.1",
     "port": 1989,
     "user": "sa",
@@ -28,4 +28,9 @@ MYSQL_CONF = {
     "timeout": 10,
     "login_timeout": 5,
     "charset": "utf8"
+}
+
+
+ZONE_SQL_CONF = {
+    "1": SQL_1345_CONF
 }
