@@ -55,9 +55,9 @@ def index():
     return redirect("/static/index.html")
 
 
-@app.route('/static/<path:path>')
-def send_static(path):
-    return send_static_file(path)
+# @app.route('/static/<path:path>')
+# def send_static(path):
+#     return send_static_file(path)
 
 
 @app.route('/update/<path:path>')
