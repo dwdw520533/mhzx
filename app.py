@@ -7,8 +7,9 @@ import logging
 import traceback
 import functools
 from flask.helpers import safe_join, send_file
-from api import api_wrap, APIResult
+from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response
+from ops.user import register_user, change_password, back_password
 
 app = Flask("mhzx", static_url_path='/static')
 
@@ -67,7 +68,7 @@ def send_static(path):
 @api_wrap
 @expose
 def register():
-    flag, user = register(**request.json)
+    flag, user = register_user(**request.json)
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -77,7 +78,7 @@ def register():
 @api_wrap
 @expose
 def changepasswd():
-    flag, user = changepasswd(**request.json)
+    flag, user = change_password(**request.json)
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)
@@ -87,7 +88,7 @@ def changepasswd():
 @api_wrap
 @expose
 def backpasswd():
-    flag, user = backpasswd(**request.json)
+    flag, user = back_password(**request.json)
     if not flag:
         return APIResult(1, msg=user)
     return APIResult(0)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from conf import *
-from utils import OSUtils
+from tool.utils import OSUtils
 
 os_utils = OSUtils()
 
