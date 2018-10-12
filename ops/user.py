@@ -46,7 +46,7 @@ class User(object):
         return "0x" + hashlib.md5((name + pwd).encode("utf-8")).hexdigest().upper()
 
     def update_password(self, name, new_passwd):
-        sql = "UPDATE [dbo].[users] SET passwd='%s' where name=%s" % (new_passwd, name)
+        sql = "UPDATE [dbo].[users] SET passwd=%s where name='%s'" % (new_passwd, name)
         self.ms.execute_non_query(sql)
 
     def change_password(self, name, old_pwd, new_pwd):

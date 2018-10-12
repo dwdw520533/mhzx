@@ -11,6 +11,7 @@ from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response, redirect
 from ops.user import User
 
+logger = logging.getLogger(__name__)
 app = Flask("mhzx", static_folder="", static_url_path="")
 
 
@@ -25,7 +26,9 @@ def expose(func):
             return func(*args, **kwargs)
         except KeyError:
             return APIResult(1, msg="参数错误")
-        except Exception:
+        except Exception as ex:
+            logger.error(str(ex))
+            logger.error(traceback.format_exc())
             return APIResult(1, msg="系统错误")
     return wrapper
 
