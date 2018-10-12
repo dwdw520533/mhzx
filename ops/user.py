@@ -18,7 +18,7 @@ class User(object):
                         (name, question, answer))
 
     def get_user_by_name_pwd(self, name, passwd):
-        return self.ms.first("select * from [dbo].[users] where name='%s' and passwd='%s';" % (name, passwd))
+        return self.ms.first("select * from [dbo].[users] where name='%s' and passwd=%s;" % (name, passwd))
 
     def get_latest_user_id(self):
         result = self.ms.first("select max(id) as id from [dbo].[users];")
