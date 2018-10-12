@@ -11,7 +11,7 @@ from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response, redirect
 from ops.user import register_user, change_password, back_password
 
-app = Flask("mhzx", static_url_path='/static')
+app = Flask("mhzx")
 
 
 def expose(func):
@@ -55,9 +55,9 @@ def index():
     return redirect("/static/index.html")
 
 
-# @app.route('/static/<path:path>')
-# def send_static(path):
-#     return send_static_file(path)
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_static_file(path)
 
 
 @app.route('/update/<path:path>')
