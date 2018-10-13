@@ -1,6 +1,5 @@
 # coding=utf-8
-import cgi
-import subprocess
+from contrib import subprocess
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
