@@ -10,6 +10,7 @@ from flask.helpers import safe_join, send_file
 from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response, redirect
 from ops.user import User
+from ops.data import query_role
 
 logger = logging.getLogger(__name__)
 app = Flask("mhzx", static_folder="", static_url_path="")
@@ -108,10 +109,12 @@ def backpasswd():
 @api_wrap
 @expose
 def backpasswd():
-    flag, user = request.user_service.back_password(**request.json)
-    if not flag:
-        return APIResult(1, msg=user)
-    return APIResult(0)
+    name = request.args.get("name")
+    user = request.user_service.get_user_by_name(name)
+    if not user:
+        return APIResult(1, msg="用户不存在")
+    return APIResult(0, query_role(user["ID"]))
+
 
 application = app
 
