@@ -8,7 +8,7 @@ class APIResult(dict):
     def __init__(self, code, result=None, msg=None):
         super(APIResult, self).__init__()
         self["code"] = code
-        self["msg"] = msg or "系统错误"
+        self["msg"] = msg or ("系统错误" if code else "成功")
         if result is None:
             result = {}
         self["result"] = result
