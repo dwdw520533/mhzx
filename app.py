@@ -108,7 +108,7 @@ def backpasswd():
 @app.route('/api/queryrole', methods=['POST'])
 @api_wrap
 @expose
-def backpasswd():
+def query_role():
     name = request.args.get("name")
     if not name:
         return APIResult(1, msg="参数错误")
