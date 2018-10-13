@@ -49,15 +49,8 @@ def handle_error(e):
     return Response(response=resp, status=500)
 
 
-def send_static_file(path):
-    filename = os.path.join(os.path.dirname(__file__), safe_join("static", path))
-    if not os.path.isfile(filename):
-        return "file path not find"
-    return send_file(filename)
-
-
-def send_update_file(path):
-    filename = safe_join(conf.UPDATE_DIR, path)
+def send_static_file(directory, path):
+    filename = os.path.join(os.path.dirname(__file__), safe_join(directory, path))
     if not os.path.isfile(filename):
         return "file path not find"
     return send_file(filename)
@@ -70,12 +63,12 @@ def index():
 
 @app.route('/static/<path:path>')
 def send_static(path):
-    return send_static_file(path)
+    return send_static_file("static", path)
 
 
 @app.route('/update/<path:path>')
 def send_update(path):
-    return send_update_file(path)
+    return send_static_file("update", path)
 
 
 @app.route('/api/register', methods=['POST'])
