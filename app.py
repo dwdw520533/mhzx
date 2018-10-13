@@ -10,7 +10,6 @@ from flask.helpers import safe_join, send_file
 from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response, redirect
 from ops.user import User
-from ops.data import query_role
 
 logger = logging.getLogger(__name__)
 app = Flask("mhzx", static_folder="", static_url_path="")
