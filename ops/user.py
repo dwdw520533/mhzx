@@ -1,6 +1,10 @@
+import os
+import conf
+import pandas
 import datetime
 import hashlib
 from ops.mssql import Mysql
+from pandas.errors import EmptyDataError
 
 
 class User(object):
@@ -73,3 +77,36 @@ class User(object):
         sql = "exec usecash %s" % values
         self.ms.execute_non_query(sql)
         return True, None
+
+    def sync_role_data(self):
+        ret = self.ms.first("select max(roleid) as roleid from [dbo].[roles];")
+        file_name = os.path.join(conf.LINUX_DATA_DIR, "role.txt")
+        if not os.path.exists(file_name):
+            return
+        try:
+            df = pandas.read_csv(file_name, skiprows=1, encoding="utf-8")
+            if df.empty:
+                return
+            max_role_id = ret["roleid"] or 0
+            df_ret = df.loc[df["roleid"] > max_role_id]
+            if df_ret.empty:
+                return
+            values = ["(%s)" % ",".join(["'%s'" % str(i) for i in [
+                    row["roleid"], row["userid"], row["name"]]])
+                      for _, row in df_ret.iterrows()]
+            for value in values:
+                sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % value
+                self.ms.execute_non_query(sql)
+        except EmptyDataError:
+            pass
+
+    def query_role(self, name):
+        user = self.get_user_by_name(name)
+        if not user:
+            return False, "用户不存在"
+        sql = "select * from [dbo].[roles] where userid=%s" % user["ID"]
+        return True, self.ms.execute_query(sql)
+
+
+if __name__ == '__main__':
+    User(conf.SQL_1345_CONF).sync_role_data()

@@ -21,7 +21,7 @@ CLIENT_DATA_DIR = os.path.join(CLIENT_EL_DIR, "data")
 
 
 SQL_1345_CONF = {
-    "host": "127.0.0.1",
+    "host": "172.31.187.199",
     "port": 1989,
     "user": "sa",
     "password": "123456",

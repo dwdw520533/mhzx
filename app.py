@@ -10,7 +10,6 @@ from flask.helpers import safe_join, send_file
 from tool.api import api_wrap, APIResult
 from flask import Flask, request, Response, redirect
 from ops.user import User
-from ops.data import query_role
 
 logger = logging.getLogger(__name__)
 app = Flask("mhzx", static_folder="", static_url_path="")
@@ -108,14 +107,14 @@ def query_user_role():
     name = request.args.get("name")
     if not name:
         return APIResult(1, msg="参数错误")
-    user = request.user_service.get_user_by_name(name)
-    if not user:
-        return APIResult(1, msg="用户不存在")
-    return APIResult(0, query_role(user["ID"]))
+    flag, result = request.user_service.query_role(name)
+    if not flag:
+        return APIResult(1, msg=result)
+    return APIResult(0, result)
 
 
 application = app
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
