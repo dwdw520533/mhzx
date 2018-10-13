@@ -115,10 +115,10 @@ def query_user_role():
     name = request.args.get("name")
     if not name:
         return APIResult(1, msg="参数错误")
-    user = request.user_service.get_user_by_name(name)
-    if not user:
-        return APIResult(1, msg="用户不存在")
-    return APIResult(0, query_role(user["ID"]))
+    flag, result = request.user_service.query_role(name)
+    if not flag:
+        return APIResult(1, msg=result)
+    return APIResult(0, result)
 
 
 application = app

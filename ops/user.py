@@ -101,3 +101,7 @@ class User(object):
             return False, "用户不存在"
         sql = "select * from [dbo].[roles] where userid=%s" % user["ID"]
         return True, self.ms.execute_query(sql)
+
+
+if __name__ == '__main__':
+    User(conf.SQL_1345_CONF).sync_role_data()
