@@ -9,6 +9,7 @@ ZONE_CONF = {
 ROOT_DIR = "C:/server"
 UPDATE_DIR = os.path.join(ROOT_DIR, "update")
 PACKAGE_DIR = os.path.join(ROOT_DIR, "package")
+LINUX_DATA_DIR = os.path.join(ROOT_DIR, "data")
 
 UPDATE_FILE = os.path.join(UPDATE_DIR, "data.7z")
 

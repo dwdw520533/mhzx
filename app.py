@@ -104,6 +104,15 @@ def backpasswd():
     return APIResult(0)
 
 
+@app.route('/api/queryrole', methods=['POST'])
+@api_wrap
+@expose
+def backpasswd():
+    flag, user = request.user_service.back_password(**request.json)
+    if not flag:
+        return APIResult(1, msg=user)
+    return APIResult(0)
+
 application = app
 
 
