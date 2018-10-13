@@ -110,6 +110,8 @@ def backpasswd():
 @expose
 def backpasswd():
     name = request.args.get("name")
+    if not name:
+        return APIResult(1, msg="参数错误")
     user = request.user_service.get_user_by_name(name)
     if not user:
         return APIResult(1, msg="用户不存在")
