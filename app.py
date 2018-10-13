@@ -105,7 +105,7 @@ def backpasswd():
     return APIResult(0)
 
 
-@app.route('/api/queryrole', methods=['POST'])
+@app.route('/api/queryrole', methods=['GET'])
 @api_wrap
 @expose
 def query_role():
