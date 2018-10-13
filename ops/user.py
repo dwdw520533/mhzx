@@ -1,3 +1,6 @@
+import os
+import conf
+import pandas
 import datetime
 import hashlib
 from ops.mssql import Mysql
@@ -73,3 +76,28 @@ class User(object):
         sql = "exec usecash %s" % values
         self.ms.execute_non_query(sql)
         return True, None
+
+    def sync_role_data(self):
+        ret = self.ms.first("select max(roleid) as roleid from [dbo].[roles];")
+        file_name = os.path.join(conf.LINUX_DATA_DIR, "role.txt")
+        if not os.path.exists(file_name):
+            return
+        df = pandas.read_csv(file_name, skiprows=1, encoding="utf-8")
+        if df.empty:
+            return
+        df_ret = df.loc[df["roleid"] >= ret["roleid"]]
+        if df_ret.empty:
+            return
+        values = ["(%s)" % ",".join(["'%s'" % str(i) for i in [
+                row["roleid"], row["userid"], row["name"]]])
+                  for _, row in df_ret.iterrows()]
+        sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % " ".join(values)
+        print(sql)
+        self.ms.execute_non_query(sql)
+
+    def query_role(self, name):
+        user = self.get_user_by_name(name)
+        if not user:
+            return False, "用户不存在"
+        sql = "select * from [dbo].[roles] where userid=%s" % user["ID"]
+        return True, self.ms.execute_query(sql)
