@@ -85,7 +85,8 @@ class User(object):
         df = pandas.read_csv(file_name, skiprows=1, encoding="utf-8")
         if df.empty:
             return
-        df_ret = df.loc[df["roleid"] >= ret["roleid"]]
+        max_role_id = ret["roleid" or 0]
+        df_ret = df.loc[df["roleid"] > max_role_id]
         if df_ret.empty:
             return
         values = ["(%s)" % ",".join(["'%s'" % str(i) for i in [
