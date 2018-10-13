@@ -92,7 +92,7 @@ class User(object):
         values = ["(%s)" % ",".join(["'%s'" % str(i) for i in [
                 row["roleid"], row["userid"], row["name"]]])
                   for _, row in df_ret.iterrows()]
-        sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % " ".join(values)
+        sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % ",".join(values)
         print(sql)
         self.ms.execute_non_query(sql)
 
