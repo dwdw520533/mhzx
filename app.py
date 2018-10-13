@@ -20,7 +20,10 @@ def expose(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            zone_id = request.json.pop("zone_id", None)
+            if request.json and "zone_id" in request.json:
+                zone_id = request.json.pop("zone_id", None)
+            else:
+                zone_id = request.args.get("zone_id")
             if not zone_id:
                 return APIResult(1, msg="参数错误")
             setattr(request, "user_service", User(conf.ZONE_SQL_CONF[str(zone_id)]))
@@ -108,7 +111,7 @@ def backpasswd():
 @app.route('/api/queryrole', methods=['GET'])
 @api_wrap
 @expose
-def query_role():
+def query_user_role():
     name = request.args.get("name")
     if not name:
         return APIResult(1, msg="参数错误")
