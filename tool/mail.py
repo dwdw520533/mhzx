@@ -84,8 +84,8 @@ def hextostr(text):
 
 
 if __name__ == '__main__':
-    receiver = 2257
-    item = 43257
+    receiver = 2256
+    item = 42355
     number = 1
     title = "鸿蒙快递，请查收"
     text = "这是您在鸿蒙宝库购买的商品，请查收！"
