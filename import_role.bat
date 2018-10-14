@@ -1,2 +1,2 @@
-cd C:\website\Apache24\mhzx
+cd C:\website\mhzx
 python -m ops.user
