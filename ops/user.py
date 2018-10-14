@@ -86,7 +86,7 @@ class User(object):
             roleid, userid, name = line.split(",")[:3]
             if not (roleid.isdigit() and int(roleid) > max_role_id):
                 continue
-            role_data.append([roleid, userid, name])
+            role_data.append([roleid, userid, name.strip('"')])
         return role_data
 
     def sync_role_data(self):
