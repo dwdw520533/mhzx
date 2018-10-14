@@ -36,4 +36,4 @@ ZONE_SQL_CONF = {
     "1": SQL_1345_CONF
 }
 
-print(hex(ord("w")))
+MAIL_SERVER = ("172.31.187.199", "29400")

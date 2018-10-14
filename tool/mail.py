@@ -1,7 +1,7 @@
 # coding:utf-8
 import re
+import conf
 import socket
-import binascii
 from binascii import hexlify, unhexlify
 
 PROTECT_VALUE = {
@@ -67,14 +67,13 @@ class MailSend(object):
         hex_str = self.get_hex(receiver, item, number, title, text, protect)
         print(hex_str)
         sc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sc.connect(("192.168.200.100", 29400))
+        sc.connect(conf.MAIL_SERVER)
         bf = hex_str.split(":")
         sc.sendall(unhexlify("".join(bf)))
         data = sc.recv(1024)
         if not data:
             return
         print(hexlify(data).decode())
-        print(hextostr(hexlify(data).decode()))
 
 
 def hextostr(text):
