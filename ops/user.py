@@ -105,4 +105,4 @@ class User(object):
 
 
 if __name__ == '__main__':
-    print(User(conf.SQL_1345_CONF).read_role_file())
+    print(User(conf.SQL_1345_CONF).sync_role_data())
