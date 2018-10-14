@@ -78,27 +78,23 @@ class User(object):
         self.ms.execute_non_query(sql)
         return True, None
 
+    def read_role_file(self, max_role_id=0):
+        role_data, file_name = [], os.path.join(conf.LINUX_DATA_DIR, "role.txt")
+        if not os.path.exists(file_name):
+            return role_data
+        for line in open(file_name, "r").readlines():
+            roleid, userid, name = line.split(",")[:3]
+            if not (roleid.isdigit() and int(roleid) > max_role_id):
+                continue
+            role_data.append([roleid, userid, name])
+        return role_data
+
     def sync_role_data(self):
         ret = self.ms.first("select max(roleid) as roleid from [dbo].[roles];")
-        file_name = os.path.join(conf.LINUX_DATA_DIR, "role.txt")
-        if not os.path.exists(file_name):
-            return
-        try:
-            df = pandas.read_csv(file_name, skiprows=1, encoding="utf-8")
-            if df.empty:
-                return
-            max_role_id = ret["roleid"] or 0
-            df_ret = df.loc[df["roleid"] > max_role_id]
-            if df_ret.empty:
-                return
-            values = ["(%s)" % ",".join(["'%s'" % str(i) for i in [
-                    row["roleid"], row["userid"], row["name"]]])
-                      for _, row in df_ret.iterrows()]
-            for value in values:
-                sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % value
-                self.ms.execute_non_query(sql)
-        except EmptyDataError:
-            pass
+        for data in self.read_role_file(ret["roleid"] or 0):
+            value = "(%s)" % ",".join(["'%s'" % i for i in data])
+            sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % value
+            self.ms.execute_non_query(sql)
 
     def query_role(self, name):
         user = self.get_user_by_name(name)
@@ -109,4 +105,4 @@ class User(object):
 
 
 if __name__ == '__main__':
-    User(conf.SQL_1345_CONF).sync_role_data()
+    print(User(conf.SQL_1345_CONF).read_role_file())

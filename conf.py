@@ -35,3 +35,5 @@ SQL_1345_CONF = {
 ZONE_SQL_CONF = {
     "1": SQL_1345_CONF
 }
+
+print(hex(ord("w")))
