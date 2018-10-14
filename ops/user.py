@@ -95,6 +95,7 @@ class User(object):
             value = "(%s)" % ",".join(["'%s'" % i for i in data])
             sql = "INSERT INTO [dbo].[roles] (roleid,userid,name) VALUES %s" % value
             self.ms.execute_non_query(sql)
+            print("#add role data:", data)
 
     def query_role(self, name):
         user = self.get_user_by_name(name)
