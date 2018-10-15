@@ -59,6 +59,10 @@ def send_static_file(directory, path):
 def index():
     return redirect("/static/index.html")
 
+@app.route('/favicon.ico')
+def favicon():
+    return ""
+
 
 @app.route('/static/<path:path>')
 def send_static(path):
